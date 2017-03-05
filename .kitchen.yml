@@ -1,0 +1,25 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+  
+platforms:
+- name: windows2012r2
+  driver:
+    communicator: winrm
+    gui: true
+    box: opentable/win-2012r2-standard-amd64-nocm
+    customize:
+      memory: '2048'
+      cpus: '2'
+      vram: '32'
+  transport: 
+      name: winrm 
+      max_threads: 6
+suites:
+- name: default
+  run_list: ['recipe[windows_logrotate]']
+  attributes:

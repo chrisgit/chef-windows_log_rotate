@@ -1,0 +1,7 @@
+DEPENDENCIES
+  windows_logrotate
+    path: .
+    metadata: true
+
+GRAPH
+  windows_logrotate (1.0.0)
