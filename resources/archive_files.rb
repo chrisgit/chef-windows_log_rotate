@@ -65,6 +65,7 @@ def file_age_in_days(filename)
 end
 
 def aged_files()
+  filemask.gsub!(/\\/, '/')
   Dir[filemask].select do |filename|
     file_age_in_days(filename) > fileage
   end

@@ -1,7 +1,11 @@
 DEPENDENCIES
+  log_rotate_test
+    path: test/fixtures/cookbooks/log_rotate_test
   windows_logrotate
     path: .
     metadata: true
 
 GRAPH
+  log_rotate_test (1.0.0)
+    windows_logrotate (>= 0.0.0)
   windows_logrotate (1.0.0)

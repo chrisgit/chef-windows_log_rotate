@@ -5,6 +5,9 @@ driver:
 provisioner:
   name: chef_zero
   require_chef_omnibus: latest
+
+verifier:
+  name: inspec
   
 platforms:
 - name: windows2012r2
@@ -12,6 +15,7 @@ platforms:
     communicator: winrm
     gui: true
     box: opentable/win-2012r2-standard-amd64-nocm
+#    linked_clone: true
     customize:
       memory: '2048'
       cpus: '2'
@@ -21,5 +25,13 @@ platforms:
       max_threads: 6
 suites:
 - name: default
-  run_list: ['recipe[windows_logrotate]']
+  run_list:
+    - windows_logrotate::logrotate
+    - log_rotate_test::create_old_log_files
+    - windows_logrotate::delete_old_log_files
   attributes:
+    windows_logrotate:
+      log_type: daily_log
+      days_to_keep_logs: 28
+      log_file: c:\chef\log\client.log
+
