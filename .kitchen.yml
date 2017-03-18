@@ -15,7 +15,6 @@ platforms:
     communicator: winrm
     gui: true
     box: opentable/win-2012r2-standard-amd64-nocm
-#    linked_clone: true
     customize:
       memory: '2048'
       cpus: '2'
@@ -29,6 +28,8 @@ suites:
     - windows_logrotate::logrotate
     - log_rotate_test::create_old_log_files
     - windows_logrotate::delete_old_log_files
+    - log_rotate_test::configure_chef_client_as_service
+    - windows_logrotate::configure_chef_service_logfile
   attributes:
     windows_logrotate:
       log_type: daily_log

@@ -12,6 +12,7 @@ supports         'windows'
 recipe           'default', 'Controls the basic run list'
 recipe           'logrotate', 'Creates daily log file or Ruby logger with shift age specified'
 recipe           'delete_old_log_files', 'Deletes files (based on creation time) when they reach a certain age'
+recipe           'configure_chef_service_logfile', 'Changes the name of the log file used by the Chef service from client.log'
 
 # Extended definitions
 grouping 'windows_log_rotate',
