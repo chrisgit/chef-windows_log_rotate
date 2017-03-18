@@ -18,8 +18,9 @@ For Linux you can use the chef-client cookbook (https://github.com/chef-cookbook
 `['windows_logrotate']['days_to_keep_logs']` | Fixnum | Number of days to keep log                          | 7
 `['windows_logrotate']['log_file']`          | String | Full path and name of log file                      | c:\chef\log\client.log
 `['windows_logrotate']['shift_age']`         | Fixnum | Used when log_type is set to 'rotate'               | `daily`
+`['chef_client']['service_log_file']`        | Fixnum | Allows Chef service to use a custom log filename    | `client.service.log`
 
-log_typs is one of 
+log_types valid values 
 * daily_log - new log file is created for each day, the date is appended to the log file name
 * rotate_log - log file is archived every day
 
@@ -31,13 +32,14 @@ When log_type is rotate_log uses the standard Ruby logger, shift_age needs to be
 
 Check latest Ruby docs for settings (https://ruby-doc.org/stdlib-2.3.0/libdoc/logger/rdoc/Logger.html)
 
-If running Chef as a service and rotate_log is selected then the Chef-Client runner and Chef service log files need to be different, i.e. service log file = c:/chef/log/service.log and Chef-Client runner c:/chef/log/client.log (see Background/Windows Service).
+If running Chef as a service and rotate_log is selected then the Chef-Client runner and Chef service log files need to be different, i.e. service log file = c:/chef/log/service.log and Chef-Client runner c:/chef/log/client.log (see Background/Windows Service), the configure_chef_service_logfile recipe does this.
 
 The recipes are
 * logrotate - this will close the current logger and create a new logger
 * delete_old_log_files - applies a mask to the log file name, deletes log files based on create time
+* configure_chef_service_logfile - this recipe modifies the code in chef-client windows_service by changing the service install command and client.service.rb configuration file and allowing you to specify a custom log file name and not be forced into using client.log
 
-The log switching is called in a Chef recipe but equally could be called at the end of a library file, that way it can capture Chef::Log and immediate (i.e. compile time such as log.run_action(:write)) output.
+Selecting daily_lof or rotate_log is inside a Chef recipe (logrotate.rb) but the code calls out to a method so could equally be called at the end of a library file ensuring that the log is setup and ready to go in the compile phase capturing Chef::Log and immediate calls to log resource (i.e. compile time run_action specified  on resource declaration) output.
 
 ## Background
 
