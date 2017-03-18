@@ -12,14 +12,13 @@ For Linux you can use the chef-client cookbook (https://github.com/chef-cookbook
 
 #### attributes: default
 
- Key                                         | Type   | Description                                         | Default
----------------------------------------------|--------|-----------------------------------------------------|---------
-`['windows_logrotate']['log_type']`          | String | Used to determine the log type                      | `daily_log`
-`['windows_logrotate']['days_to_keep_logs']` | Fixnum | Number of days to keep log                          | 7
-`['windows_logrotate']['log_file']`          | String | Full path and name of log file                      | c:\chef\log\client.log
-`['windows_logrotate']['shift_age']`         | String | Used when log_type is set to 'rotate'               | `daily`
-                                             | Fixnum |                                                     |
-`['chef_client']['service_log_file']`        | String | Allows Chef service to use a custom log filename    | `client.service.log`
+ Key                                         | Type          | Description                                       | Default
+---------------------------------------------|---------------|---------------------------------------------------|---------
+`['windows_logrotate']['log_type']`          | String        | Used to determine the log type                    | `daily_log`
+`['windows_logrotate']['days_to_keep_logs']` | Fixnum        | Number of days to keep log                        | 7
+`['windows_logrotate']['log_file']`          | String        | Full path and name of log file                    | c:\chef\log\client.log
+`['windows_logrotate']['shift_age']`         | String/Fixnum | Used when log_type is set to 'rotate'             | `daily`
+`['chef_client']['service_log_file']`        | String        | Allows Chef service to use a custom log filename  | `client.service.log`
 
 log_types valid values 
 * daily_log - new log file is created for each day, the date is appended to the log file name
