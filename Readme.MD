@@ -17,8 +17,9 @@ For Linux you can use the chef-client cookbook (https://github.com/chef-cookbook
 `['windows_logrotate']['log_type']`          | String | Used to determine the log type                      | `daily_log`
 `['windows_logrotate']['days_to_keep_logs']` | Fixnum | Number of days to keep log                          | 7
 `['windows_logrotate']['log_file']`          | String | Full path and name of log file                      | c:\chef\log\client.log
-`['windows_logrotate']['shift_age']`         | Fixnum | Used when log_type is set to 'rotate'               | `daily`
-`['chef_client']['service_log_file']`        | Fixnum | Allows Chef service to use a custom log filename    | `client.service.log`
+`['windows_logrotate']['shift_age']`         | String | Used when log_type is set to 'rotate'               | `daily`
+                                             | Fixnum |                                                     |
+`['chef_client']['service_log_file']`        | String | Allows Chef service to use a custom log filename    | `client.service.log`
 
 log_types valid values 
 * daily_log - new log file is created for each day, the date is appended to the log file name
@@ -30,7 +31,7 @@ When log_type is rotate_log uses the standard Ruby logger, shift_age needs to be
 * weekly
 * monthly
 
-Check latest Ruby docs for settings (https://ruby-doc.org/stdlib-2.3.0/libdoc/logger/rdoc/Logger.html)
+Check latest Ruby docs for settings (http://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html)
 
 If running Chef as a service and rotate_log is selected then the Chef-Client runner and Chef service log files need to be different, i.e. service log file = c:/chef/log/service.log and Chef-Client runner c:/chef/log/client.log (see Background/Windows Service), the configure_chef_service_logfile recipe does this.
 
