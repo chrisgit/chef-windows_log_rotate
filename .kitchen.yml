@@ -35,4 +35,6 @@ suites:
       log_type: daily_log
       days_to_keep_logs: 28
       log_file: c:\chef\log\client.log
+    chef_client:
+      service_log_file: client.service.log
 
