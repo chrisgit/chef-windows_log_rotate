@@ -26,6 +26,12 @@ end
 =end
 # One thing to note in the code above, the version check is STRING type, meaning 12.19.36 is less than 12.5.1
 
+# Exit early if chef_client::service not included in this run
+unless node.recipe?('chef-client::service')
+  Chef::Log.warn('chef-client::service is not part of the run list so far cannot configure service log.')
+  return
+end
+
 # If Chef client > 12.5.1 then specify a new client service template which include log file name
 resources("template[#{node['chef_client']['conf_dir']}/client.service.rb]").cookbook('windows_logrotate')
 
